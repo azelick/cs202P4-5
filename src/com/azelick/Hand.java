@@ -11,9 +11,7 @@ abstract public class Hand {
     //hame of player
     private String playerName;
     //character array of letters in hand tiles
-    private char[] hand;
-    //begining of hand LLL
-    private DictWord head;
+    private char[] handArr;
     private final static int numOfTiles = 7;
 
     public Hand() {
@@ -26,7 +24,7 @@ abstract public class Hand {
     public Hand(Hand hand)
     {
         //TODO
-
+        this.tilesInHand = hand.tilesInHand.clone();
     }
 
     public void display() {
@@ -72,11 +70,11 @@ abstract public class Hand {
 
     public String getHand() {
         //TODO Should this be done in a different way? I feel probably? Maybe with the string class?
-        hand = new char[numOfTiles];
+        handArr = new char[numOfTiles];
         for(int i = 0; i < numOfTiles; ++i)
-            hand = new char[tilesInHand[i].getLetter()];
+            handArr = new char[tilesInHand[i].getLetter()];
         //TODO If this works that's awesome
-        return new String(hand);
+        return new String(handArr);
     }
 
     abstract public void makePlay(Board baord);
@@ -87,7 +85,13 @@ abstract public class Hand {
     }
 
     public boolean containsLetter(final char letter) {
-
+        boolean doesContain = false;
+        for(int i = 0; tilesInHand[i] != null && i < numOfTiles && doesContain == false ; ++i)
+        {
+            if(tilesInHand[i].getLetter() == letter)
+                doesContain = true;
+        }
+        return doesContain;
     }
 
     public void displayScore() {
@@ -100,9 +104,5 @@ abstract public class Hand {
 
     protected void putTileBack(Board board, Tile tile) {
         board.putTileBack(tile);
-    }
-
-    protected void copyList(DictWord head, DictWord current) {
-
     }
 }
