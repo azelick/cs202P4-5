@@ -28,6 +28,26 @@ public class TileBag {
         shuffleTiles();
     }
 
+    public TileBag(TileBag bag)
+    {
+        //need to copy tiles and tile given out
+        tiles = new Tile[numOfTiles];
+        for (int i = 0; i < numOfTiles; ++i)
+        {
+            if(bag.tiles[i] == null)
+                tiles[i] = bag.tiles[i];
+            else
+                tiles[i] = new Tile(bag.tiles[i].letter, bag.tiles[i].pointValue);
+        }
+        tilesGivenOut = new Tile[numOfTiles];
+        for (int i = 0; i < numOfTiles; ++i)
+            if(bag.tilesGivenOut[i] == null)
+                tilesGivenOut[i] = bag.tilesGivenOut[i];
+            else
+                tilesGivenOut[i] = new Tile(bag.tilesGivenOut[i].letter, bag.tilesGivenOut[i].pointValue);
+    }
+
+
     public Tile getRandomTile()
     {
         int i = 0;
@@ -90,5 +110,4 @@ public class TileBag {
             ++i;
         tiles[i] = tile;
     }
-
 }

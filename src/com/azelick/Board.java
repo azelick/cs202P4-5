@@ -15,8 +15,8 @@ public class Board {
          * I believe Java should set the above to null by default?
          *
          */
-
     }
+
     //arg constructor
     public Board(int newSize)
     {
@@ -35,13 +35,16 @@ public class Board {
     public Board(Board board)
     {
         //copy bag, tiles, size
-        board.copyBoard(this.head);
+        board.copyBoardSpaces(this.head);
+        board.tBag = new TileBag(this.tBag);
+        this.size = board.size;
     }
 
     public void display()
     {
        for(int i = 0; i < size; ++i)
        {
+           System.out.println("row: ");
            for (int v = 0; v < size; ++v)
                head[i][v].display();
        }
@@ -58,11 +61,6 @@ public class Board {
         }
     }
 
-    public void set_premium()
-    {
-        //TODO
-    }
-
     public Tile getRandomTile()
     {
         return tBag.getRandomTile();
@@ -73,44 +71,9 @@ public class Board {
         tBag.returnToUnused(tile);
     }
 
-    public void checkWordIsValid(final String word)
-    {
-        //TODO
-    }
-
-    public void display_dictionary()
-    {
-
-        //TODO
-    }
-
-    //public DictWord findWordsWithLetter(final char letter)
-    //{
-
-    //TODO
-    //}
-
-    //public Coordinate findPlayableLocation(String word)
-    //{
-
-    //TODO
-    //}
-
-    protected void copyBoard(Space [][] head)
+    protected void copyBoardSpaces(Space [][] head)
     {
         //TODO NEED TO LOOK UP HOW TO COPY A 2D ARRAY
     }
-
-    protected boolean isContiguousAvailable(Coordinate location, int length)
-    {
-       //TODO
-        return false;
-    }
-
-    //protected Coordinate find_empty_space()
-    //{
-        //TODO
-    //}
-
 
 }

@@ -7,9 +7,12 @@ public class Tile {
     char letter;
     int pointValue;
 
-    public Tile()
-    {
+    public Tile() {}
 
+    public Tile(Tile tile)
+    {
+        letter = tile.getLetter();
+        pointValue = tile.getPointValue();
     }
 
     public Tile(char newLetter, int newPointValue)

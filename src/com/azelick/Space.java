@@ -15,21 +15,19 @@ public class Space {
     {
         tile = null;
     }
-    public void setTileInSpace(Tile)
+
+    public void setTileInSpace(Tile tile)
     {
-        this.tile.copyTile(tile);
+        this.tile = new Tile(tile);
     }
 
     public void display()
     {
+        System.out.print(" | ");
         tile.display();
+        System.out.print(" | ");
         if (is_bonus)
             System.out.println("It is a bonus space");
-    }
-
-    public void setAsBonus()
-    {
-    //TODO this isn't needed if I extend the space class
     }
 
     public boolean isOccupied() {
