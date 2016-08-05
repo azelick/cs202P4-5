@@ -15,9 +15,14 @@ abstract public class Hand {
     private final static int numOfTiles = 7;
 
     public Hand() {
-        tilesInHand = new Tile[numOfTiles];
-        for(int i = 0; i < numOfTiles; ++i)
-            tilesInHand[i] = null;
+        generateEmptyHand();
+        playerName = "";
+    }
+
+    public Hand(String name)
+    {
+        generateEmptyHand();
+        playerName = new String(name);
     }
 
     //copy constructor
@@ -27,6 +32,12 @@ abstract public class Hand {
         this.tilesInHand = hand.tilesInHand.clone();
     }
 
+    private void generateEmptyHand()
+    {
+         tilesInHand = new Tile[numOfTiles];
+        for(int i = 0; i < numOfTiles; ++i)
+            tilesInHand[i] = null;
+    }
     public void display() {
 
         for(int i = 0; i < numOfTiles; ++i)

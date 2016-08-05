@@ -11,6 +11,8 @@ public class TileBag {
     private static final int numOfTiles = 41;
     private static final int numOfConsonants = 21;
     private static final int numOfVowels = 20;
+    private static final int consonantPointValue = 2;
+    private static final int vowelPointValue = 2;
     private static final char [] consonantsInGame = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
             'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'};
     private static final char [] vowelsInGame = {'A', 'A', 'A', 'A', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I',
@@ -91,14 +93,12 @@ public class TileBag {
         int v = 0;
         for(int i = 0; i < numOfConsonants; ++i)
         {
-            tiles[v].letter = consonantsInGame[i];
-            tiles[v].pointValue = 2;
+            tiles[v] = new Tile(consonantsInGame[i], consonantPointValue);
             ++v;
         }
         for(int i = 0; i < numOfVowels; ++i)
         {
-           tiles[v].letter = vowelsInGame[i];
-            tiles[v].pointValue = 1;
+            tiles[v] = new Tile(vowelsInGame[i], vowelPointValue);
             ++v;
         }
     }

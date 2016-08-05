@@ -6,7 +6,7 @@ package com.azelick;
  * this might be an abstract base class
  * I can have two childred for single space and bonus space
  */
-public class Space {
+abstract public class Space {
     //fields
     Tile tile;
     boolean is_bonus = false;
@@ -16,18 +16,12 @@ public class Space {
         tile = null;
     }
 
+    abstract public void display();
+    abstract public int getPoints();
+
     public void setTileInSpace(Tile tile)
     {
         this.tile = new Tile(tile);
-    }
-
-    public void display()
-    {
-        System.out.print(" | ");
-        tile.display();
-        System.out.print(" | ");
-        if (is_bonus)
-            System.out.println("It is a bonus space");
     }
 
     public boolean isOccupied() {

@@ -24,6 +24,18 @@ public class Board {
         {
             size = newSize;
             head = new Space[size][size];
+            for (int i = 0; i < size; ++i)
+            {
+                for(int v = 0; v < size; ++v)
+                {
+                   if(i == v)
+                       head[i][v] = new BonusSpace();
+                   else if((size - i - 1) == v)
+                       head[i][v] = new BonusSpace();
+                   else
+                        head[i][v] = new RegularSpace();
+                }
+            }
         }
         else
         {
@@ -44,9 +56,12 @@ public class Board {
     {
        for(int i = 0; i < size; ++i)
        {
-           System.out.println("row: ");
            for (int v = 0; v < size; ++v)
+           {
+               System.out.print("row: ");
                head[i][v].display();
+           }
+           System.out.println("");
        }
     }
 

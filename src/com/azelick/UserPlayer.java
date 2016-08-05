@@ -11,38 +11,30 @@ public class UserPlayer extends Hand {
 
    }
 
-   public UserPlayer(String name, Board board)
+   public UserPlayer(String name)
    {
-
-   }
-
-   public void queryDictionary(Board board)
-   {
-
+        super(name);
    }
 
    public char getUserChoice()
    {
 
        String response;
-       do
-       {
-           Scanner scanner = new Scanner(System.in);
-           System.out.println("What letter would you like to place?");
-           response = new String(scanner.nextLine());
-           response.toUpperCase();
-           
-       } while(again(response.charAt(0)));
 
+       Scanner scanner = new Scanner(System.in);
+       System.out.println("What letter would you like to place?");
+       response = new String(scanner.nextLine());
+       return Character.toUpperCase(response.charAt(0));
    }
 
    public void makePlay(Board board)
    {
-
+        char userChoice = getUserChoice();
    }
 
    protected boolean again(char response)
    {
+       response = Character.toUpperCase(response);
        if(response == 'Y')
            return true;
        return false;
@@ -50,7 +42,11 @@ public class UserPlayer extends Hand {
 
    protected boolean anotherLetter()
    {
+       String response;
+       Scanner scanner = new Scanner(System.in);
        System.out.println("Would you like to input another letter?");
+       response = new String(scanner.nextLine());
+       return again(response.charAt(0));
    }
 
    protected void getAndSendTilesToBoard(Board board)
