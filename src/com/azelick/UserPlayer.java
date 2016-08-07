@@ -16,6 +16,12 @@ public class UserPlayer extends Hand {
         super(name);
    }
 
+   public UserPlayer clone()
+   {
+      UserPlayer cloned = this.clone();
+       return cloned;
+   }
+
    public char getUserChoice()
    {
 
@@ -29,7 +35,24 @@ public class UserPlayer extends Hand {
 
    public void makePlay(Board board)
    {
-        char userChoice = getUserChoice();
+       String response;
+       char userChoice = getUserChoice();
+       //TODO
+       Scanner scanner = new Scanner(System.in);
+       do
+       {
+           System.out.println("Where would you like to place it?");
+           System.out.print('\n' + "x: ");
+           int x = scanner.nextInt();
+           System.out.print('\n' + "y: ");
+           int y = scanner.nextInt();
+
+           placeTileOnBoard(board, userChoice, x, y);
+
+           System.out.println("Would you like to enter another letter? ");
+           response = new String(scanner.nextLine());
+       } while(again(response.charAt(0)));
+
    }
 
    protected boolean again(char response)
@@ -51,6 +74,7 @@ public class UserPlayer extends Hand {
 
    protected void getAndSendTilesToBoard(Board board)
    {
+
 
    }
 }

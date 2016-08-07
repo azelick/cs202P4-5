@@ -65,14 +65,13 @@ public class Board {
        }
     }
 
-    public boolean layTileOnBoard(Tile tile, int x, int y)
+    public int layTileOnBoard(Tile tile, int x, int y)
     {
         if (head[x][y].isOccupied())
-            return false;
+            return 0;
         else
         {
-            head[x][y].setTileInSpace(tile);
-            return true;
+            return head[x][y].setTileInSpace(tile);
         }
     }
 

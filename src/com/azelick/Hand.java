@@ -5,23 +5,23 @@ package com.azelick;
  */
 abstract public class Hand {
     //The tiles this player has in their hand
-    private Tile[] tilesInHand;
+    //is a CLL
+    //This is a tail pointer
+    private ListTile tailOfTiles;
     //the score of the player
     private int score;
     //hame of player
     private String playerName;
     //character array of letters in hand tiles
-    private char[] handArr;
+    private String displayHand;
     private final static int numOfTiles = 7;
 
     public Hand() {
-        generateEmptyHand();
         playerName = "";
     }
 
     public Hand(String name)
     {
-        generateEmptyHand();
         playerName = new String(name);
     }
 
@@ -29,63 +29,57 @@ abstract public class Hand {
     public Hand(Hand hand)
     {
         //TODO
-        this.tilesInHand = hand.tilesInHand.clone();
+        this.tailOfTiles = hand.tailOfTiles.copyList();
     }
 
-    private void generateEmptyHand()
-    {
-         tilesInHand = new Tile[numOfTiles];
-        for(int i = 0; i < numOfTiles; ++i)
-            tilesInHand[i] = null;
-    }
     public void display() {
+        System.out.println("Your hand: ");
+        System.out.println(getHand());
+        System.out.println("");
+    }
 
-        for(int i = 0; i < numOfTiles; ++i)
-        {
-            if (tilesInHand[i] == null)
-                return;
-            tilesInHand[i].display();
-        }
+    public String getName()
+    {
+        return playerName;
     }
 
     public void drawNewHand(Board board) {
+        //we are using the loop to call the recursive function a specific number of times
         for(int i = 0; i < numOfTiles; ++i)
-            tilesInHand[i] = board.getRandomTile();
+            tailOfTiles.insert(board.getRandomTile(), tailOfTiles);
     }
 
-    public int replaceTile(Board board, char letter) {
-        boolean wasRemoved = false;
-        int pointValue = 0;
-        for(int i = 0; i < 7 && wasRemoved == false; ++i)
-        {
-            if(tilesInHand[i] != null)
-            {
-                if(tilesInHand[i] != null)
-                {
-                    pointValue += tilesInHand[i].getPointValue();
-                    tilesInHand[i] = null;
-                    tilesInHand[i] = board.getRandomTile();
-                    wasRemoved = true;
-                }
-            }
-        }
-        return pointValue;
+    private void addAtEnd(Tile handTile)
+    {
+        tailOfTiles.insert(handTile, tailOfTiles);
     }
 
-    public void placeTileOnBoard(Board board, char letter, int x, int y) {
-        int i = 0;
-        while((tilesInHand[i] != null) && (tilesInHand[i].getLetter() != letter))
-            ++i;
-        board.layTileOnBoard(tilesInHand[i], x, y);
+    /**
+     * to replace a tile in user's hand after they play to board
+     * @param tile the playing board that gives us a tile
+     * @param letter
+     * @return
+     */
+    public void replaceTile(Tile tile, char letter) {
+        tailOfTiles = tailOfTiles.replaceTile(tailOfTiles, tile, letter);
+    }
+
+    public int placeTileOnBoard(Board board, char letter, int x, int y) {
+        Tile fromBag = getTileFromBag(board);
+        //this will replace the 'letter' tile in hand with 'fromBag' and
+        Tile toPlace = findTile(letter);
+        tailOfTiles = tailOfTiles.replaceTile(tailOfTiles, fromBag, letter);
+        return board.layTileOnBoard(toPlace, x, y);
+    }
+
+    public ListTile findTile(char letter)
+    {
+        return tailOfTiles.findTile(letter);
     }
 
     public String getHand() {
-        //TODO Should this be done in a different way? I feel probably? Maybe with the string class?
-        handArr = new char[numOfTiles];
-        for(int i = 0; i < numOfTiles; ++i)
-            handArr = new char[tilesInHand[i].getLetter()];
-        //TODO If this works that's awesome
-        return new String(handArr);
+        displayHand = new String(tailOfTiles.buildDisplayList());
+        return displayHand;
     }
 
     abstract public void makePlay(Board baord);
@@ -93,16 +87,6 @@ abstract public class Hand {
 
     public int getScore() {
         return score;
-    }
-
-    public boolean containsLetter(final char letter) {
-        boolean doesContain = false;
-        for(int i = 0; tilesInHand[i] != null && i < numOfTiles && doesContain == false ; ++i)
-        {
-            if(tilesInHand[i].getLetter() == letter)
-                doesContain = true;
-        }
-        return doesContain;
     }
 
     public void displayScore() {

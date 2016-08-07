@@ -19,9 +19,10 @@ abstract public class Space {
     abstract public void display();
     abstract public int getPoints();
 
-    public void setTileInSpace(Tile tile)
+    public int setTileInSpace(Tile tile)
     {
         this.tile = new Tile(tile);
+        return getPoints();
     }
 
     public boolean isOccupied() {

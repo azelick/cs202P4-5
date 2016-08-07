@@ -12,7 +12,7 @@ public class TileBag {
     private static final int numOfConsonants = 21;
     private static final int numOfVowels = 20;
     private static final int consonantPointValue = 2;
-    private static final int vowelPointValue = 2;
+    private static final int vowelPointValue = 1;
     private static final char [] consonantsInGame = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
             'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'};
     private static final char [] vowelsInGame = {'A', 'A', 'A', 'A', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I',
