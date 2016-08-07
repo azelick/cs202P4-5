@@ -33,11 +33,13 @@ public class Main {
         player1.drawNewHand(playingBoard);
         player2.drawNewHand(playingBoard);
 
-        //TODO for testing purposes
-        UserPlayer player3 = player1.clone();
-        player1.display();
-        player3.display();
-
+//        //TODO for testing purposes
+//        UserPlayer player3 = new UserPlayer();
+//        try {
+//            player3 = player1.makeClone();
+//        } catch(CloneNotSupportedException e) {}
+//        player1.display();
+//        player3.display();
 
         //make plays until one of them reaches the final number
         do {
@@ -45,6 +47,7 @@ public class Main {
             System.out.println(player1.getName() + " it's your turn!");
             player1.display();
             player1.makePlay(playingBoard);
+            //display score
 
 
             playingBoard.display();
@@ -52,6 +55,8 @@ public class Main {
             System.out.println(player2.getName() + " it's your turn!");
             player2.display();
             player2.makePlay(playingBoard);
+            //display score
+            playingBoard.display();
         } while(checkScores(player1, player2) && quit());
 
         //check who won and celebrate them

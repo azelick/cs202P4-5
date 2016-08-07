@@ -53,7 +53,9 @@ public class ListTile extends Tile{
      */
     public ListTile insert(Tile tile, ListTile tail)
     {
-        return insertAtEnd(this.getNext(), new ListTile(tile), tail);
+        //we're setting tail in the calling routing so it won't throw an exception in here
+        tail.setNext(insertAtEnd(this.getNext(), new ListTile(tile), tail));
+        return tail;
     }
 
     /**
@@ -63,29 +65,20 @@ public class ListTile extends Tile{
      */
     private ListTile insertAtEnd(ListTile tile, ListTile newGuy, ListTile tail)
     {
-        //this is bad news, means our list isn't a CLL
-        if(tile == null)
-            return null;
         //this means there's only one in the list
         if(tile == tail)
         {
            //here we're inserting
-            ListTile temp = new ListTile(newGuy);
-            temp.setNext(tail);
-            tail.setNext(temp);
-            return temp;
+            tile = new ListTile(newGuy);
+            tile.setNext(tail);
         }
-        //there's more than one in the list and we're now inserting
-        if(tile.getNext() == tail)
-        {
-            ListTile temp = new ListTile(newGuy);
-            tile.setNext(temp);
-            temp.setNext(tail.getNext());
-            return temp;
+        //we're directly before tail, so perform the insertion
+        else {
+            tile.setNext(insertAtEnd(tile.getNext(), newGuy, tail));
         }
+        return tile;
 
         //there's more than one in the list and we're recursing
-        return insertAtEnd(tile.getNext(), newGuy, tail);
     }
 
     /**
@@ -168,7 +161,7 @@ public class ListTile extends Tile{
     public String buildDisplayList()
     {
         if(letterInList == null)
-            letterInList = new String();
+            letterInList = new String("");
         buildDisplayList(this.getNext(), this);
         return letterInList;
     }
@@ -181,7 +174,8 @@ public class ListTile extends Tile{
         if(tile == null)
             return;
         //make the letter a string object, then add it to the field string
-        letterInList.concat(Character.toString(tile.getLetter()));
+        String character = Character.toString(tile.getLetter());
+        letterInList += character;
         if(tile == tail)
             return;
         buildDisplayList(tile.getNext(), tail);

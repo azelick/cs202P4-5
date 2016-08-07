@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class UserPlayer extends Hand {
    public UserPlayer()
    {
-
    }
 
    public UserPlayer(String name)
@@ -16,9 +15,9 @@ public class UserPlayer extends Hand {
         super(name);
    }
 
-   public UserPlayer clone()
+   public UserPlayer makeClone() throws CloneNotSupportedException
    {
-      UserPlayer cloned = this.clone();
+      UserPlayer cloned = (UserPlayer) this.clone();
        return cloned;
    }
 
@@ -35,22 +34,25 @@ public class UserPlayer extends Hand {
 
    public void makePlay(Board board)
    {
+       int turnScore = 0;
        String response;
-       char userChoice = getUserChoice();
-       //TODO
+       char userChoice;
        Scanner scanner = new Scanner(System.in);
        do
        {
+           userChoice = getUserChoice();
            System.out.println("Where would you like to place it?");
            System.out.print('\n' + "x: ");
            int x = scanner.nextInt();
            System.out.print('\n' + "y: ");
            int y = scanner.nextInt();
 
-           placeTileOnBoard(board, userChoice, x, y);
+           placeTileOnBoard(board, userChoice, y-1, x-1);
 
            System.out.println("Would you like to enter another letter? ");
-           response = new String(scanner.nextLine());
+           Scanner scan2 = new Scanner(System.in);
+           String newResponse = scan2.nextLine();
+           response = new String(newResponse);
        } while(again(response.charAt(0)));
 
    }

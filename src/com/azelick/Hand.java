@@ -45,8 +45,14 @@ abstract public class Hand {
 
     public void drawNewHand(Board board) {
         //we are using the loop to call the recursive function a specific number of times
-        for(int i = 0; i < numOfTiles; ++i)
-            tailOfTiles.insert(board.getRandomTile(), tailOfTiles);
+        //create the first one outside the loop so we can create the data structure
+        if(tailOfTiles == null) {
+            Tile newGuy = new Tile(board.getRandomTile());
+            tailOfTiles = new ListTile(newGuy);
+            tailOfTiles.setNext(tailOfTiles);
+        }
+        for(int i = 0; i < numOfTiles - 1; ++i)
+            tailOfTiles = tailOfTiles.insert(board.getRandomTile(), tailOfTiles);
     }
 
     private void addAtEnd(Tile handTile)
