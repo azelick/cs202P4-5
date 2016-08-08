@@ -1,19 +1,17 @@
 package com.azelick;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by azelick on 8/5/16.
+ *
  * This is a derived class of tile
  * It adds functionality to allow it to
  * function as a circular linked list node
  */
 public class ListTile extends Tile{
-    //This is an extended tile that allows you to put it into a list
+    //This is a referenced next tile that allows you to put it into a list data structure
     private ListTile next;
     //building an array list of the characters in the subtree
-    private String letterInList;
+    private String lettersInList;
 
     public ListTile(){}
 
@@ -28,7 +26,6 @@ public class ListTile extends Tile{
     }
 
     //traversal
-
     /**
      * getter
      * @return returns the ListTile 'next'
@@ -65,20 +62,18 @@ public class ListTile extends Tile{
      */
     private ListTile insertAtEnd(ListTile tile, ListTile newGuy, ListTile tail)
     {
-        //this means there's only one in the list
+        //this means there's only one in the list or we've reached the end of the list
         if(tile == tail)
         {
            //here we're inserting
             tile = new ListTile(newGuy);
             tile.setNext(tail);
         }
-        //we're directly before tail, so perform the insertion
+        //there's more than one in the list and we're recursing
         else {
             tile.setNext(insertAtEnd(tile.getNext(), newGuy, tail));
         }
         return tile;
-
-        //there's more than one in the list and we're recursing
     }
 
     /**
@@ -106,21 +101,13 @@ public class ListTile extends Tile{
 
     }
 
-    public void displayAll()
-    {
-        displayAll(this);
-
-    }
-
-    private void displayAll(ListTile tile)
-    {
-        if(tile == null)
-            return;
-        display();
-        displayAll(tile.getNext());
-
-    }
-
+    /**
+     * replaces the tile in hand with a new one provided to the function
+     * @param tail the tail reference of the CLL
+     * @param tile the tile to replace
+     * @param letter the letter to remove and replace with the new tile
+     * @return returns the tile added
+     */
     public ListTile replaceTile(ListTile tail, Tile tile, char letter)
     {
         if(tail == null)
@@ -128,6 +115,15 @@ public class ListTile extends Tile{
         return findAndReplaceTile(tail.getNext(), tail, tile, letter);
     }
 
+    /**
+     * The recursive function called by replaceTile to traverse the list and replace
+     * a given tile
+     * @param lTile the current position (tile)
+     * @param tail the reference to the tail pointer
+     * @param toInsert the tile to insert
+     * @param letter the letter to match, once found we remove that node
+     * @return return the tile that's added
+     */
     private ListTile findAndReplaceTile(ListTile lTile, ListTile tail, Tile toInsert, char letter) {
         //case 1 - empty list
         if (lTile == null)
@@ -141,7 +137,6 @@ public class ListTile extends Tile{
             }
         }
         //case 3 - more than 1 in list
-
         if(lTile.getNext().getLetter() == letter)
         {
             ListTile temp = lTile.getNext();
@@ -158,16 +153,25 @@ public class ListTile extends Tile{
         return lTile;
     }
 
+    /**
+     * traverse through the tiles in hand and add each letter to the
+     * letterInList string reference object.
+     * calls a recursive function
+     * @return the string after it's been formed
+     */
     public String buildDisplayList()
     {
-        if(letterInList == null)
-            letterInList = new String("");
+        if(lettersInList == null)
+            lettersInList = new String("");
         buildDisplayList(this.getNext(), this);
-        return letterInList;
+        return lettersInList;
     }
 
     /**
      * recursive call to add the letters in the hand CLL to a char array
+     * called by buildDisplayList
+     * @param tile the current reference tile
+     * @param tail the tail (used as our stopping condition)
      */
     public void buildDisplayList(ListTile tile, ListTile tail)
     {
@@ -175,17 +179,30 @@ public class ListTile extends Tile{
             return;
         //make the letter a string object, then add it to the field string
         String character = Character.toString(tile.getLetter());
-        letterInList += character;
+        lettersInList += character;
         if(tile == tail)
             return;
         buildDisplayList(tile.getNext(), tail);
     }
 
+
+    /**
+     * wrapper function to find a given tile in the CLL
+     * @param letter the letter to search for
+     * @return the ListTile we're returning that contains that letter
+     */
     public ListTile findTile(char letter)
     {
         return findTile(this.getNext(), this, letter);
     }
 
+    /**
+     * the recursive function called by findTile that traverses the list and returns the matched tile
+     * @param tile the current position reference
+     * @param tail the tail reference ( used as stopping condition)
+     * @param letter the letter to match with
+     * @return the ListTile to return
+     */
     private ListTile findTile(ListTile tile, ListTile tail, char letter)
     {
         if(tile == null)

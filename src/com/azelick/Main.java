@@ -45,17 +45,22 @@ public class Main {
         do {
             playingBoard.display();
             System.out.println(player1.getName() + " it's your turn!");
-            player1.display();
+            player1.displayHand();
             player1.makePlay(playingBoard);
             //display score
-
+            //System.out.println(player1.getName() + " your score is: " + player1.getScore());
+            player1.displayScore();
 
             playingBoard.display();
 
             System.out.println(player2.getName() + " it's your turn!");
-            player2.display();
+            player2.displayHand();
             player2.makePlay(playingBoard);
             //display score
+            //System.out.println(player2.getName() + " your score is: " + player2.getScore());
+            player2.displayScore();
+
+
             playingBoard.display();
         } while(checkScores(player1, player2) && quit());
 

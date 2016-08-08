@@ -47,14 +47,10 @@ public class UserPlayer extends Hand {
            System.out.print('\n' + "y: ");
            int y = scanner.nextInt();
 
-           placeTileOnBoard(board, userChoice, y-1, x-1);
-
-           System.out.println("Would you like to enter another letter? ");
-           Scanner scan2 = new Scanner(System.in);
-           String newResponse = scan2.nextLine();
-           response = new String(newResponse);
-       } while(again(response.charAt(0)));
-
+           turnScore += placeTileOnBoard(board, userChoice, y-1, x-1);
+       } while(anotherLetter());
+       System.out.println("Your score for the turn is: " + turnScore);
+       addToScore(turnScore);
    }
 
    protected boolean again(char response)
@@ -72,11 +68,5 @@ public class UserPlayer extends Hand {
        System.out.println("Would you like to input another letter?");
        response = new String(scanner.nextLine());
        return again(response.charAt(0));
-   }
-
-   protected void getAndSendTilesToBoard(Board board)
-   {
-
-
    }
 }

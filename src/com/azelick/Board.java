@@ -2,20 +2,21 @@ package com.azelick;
 
 /**
  * Created by azelick on 8/1/16.
+ *
+ * This is the board class, it is responsible for holding the spaces of the board
+ * and also the tileBag that generates the random list of tiles to play with
+ *
  */
 public class Board {
+    // head is the reference to the doubly dimensioned array of spaces
     private Space [][]head;
+    //this is the tile bag that generates tiles for the players and board to use
     private TileBag tBag;
+    //this is a n dimension of the board. Since the board is a perfect square, it is size * size dimensioned
     private int size;
 
     //Default Constructor
-    public Board()
-    {
-        /**
-         * I believe Java should set the above to null by default?
-         *
-         */
-    }
+    public Board() {}
 
     //arg constructor
     public Board(int newSize)
@@ -23,15 +24,18 @@ public class Board {
         if(newSize > 0)
         {
             size = newSize;
+            //since a square board
             head = new Space[size][size];
             for (int i = 0; i < size; ++i)
             {
                 for(int v = 0; v < size; ++v)
                 {
+                    //here we are creating bonus spaces, along the diagonal
                    if(i == v)
                        head[i][v] = new BonusSpace();
                    else if((size - i - 1) == v)
                        head[i][v] = new BonusSpace();
+                   //and regular spaces everywhere else
                    else
                         head[i][v] = new RegularSpace();
                 }
@@ -44,6 +48,13 @@ public class Board {
         tBag = new TileBag();
     }
 
+    //TODO, SHOULD THIS BE DELETED?
+
+    /**
+     * Here is the copy constructor
+     * currently I'm not using it though.
+     * @param board the board to copy from
+     */
     public Board(Board board)
     {
         //copy bag, tiles, size
@@ -52,6 +63,9 @@ public class Board {
         this.size = board.size;
     }
 
+    /**
+     * this displays the entire board
+     */
     public void display()
     {
        for(int i = 0; i < size; ++i)
@@ -65,6 +79,14 @@ public class Board {
        }
     }
 
+    /**
+     * check if occupied,
+     * if not call head's(that's a Space reference) setTileInSpace method
+     * @param tile the tile we're placing into a space
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @return returns the point value of placing the tile in that spot
+     */
     public int layTileOnBoard(Tile tile, int x, int y)
     {
         if (head[x][y].isOccupied())
@@ -75,19 +97,29 @@ public class Board {
         }
     }
 
+    /**
+     * @return a random tile from the TileBag object
+     */
     public Tile getRandomTile()
     {
         return tBag.getRandomTile();
     }
 
+    /**
+     * put a tile back in the bag
+     * @param tile the tile to put back
+     */
     public void putTileBack(Tile tile)
     {
         tBag.returnToUnused(tile);
     }
 
+    /**
+     * copy the spaces of the board
+     * @param head the reference to the object to copy
+     */
     protected void copyBoardSpaces(Space [][] head)
     {
         //TODO NEED TO LOOK UP HOW TO COPY A 2D ARRAY
     }
-
 }
