@@ -11,7 +11,7 @@ public class ListTile extends Tile{
     //This is a referenced next tile that allows you to put it into a list data structure
     private ListTile next;
     //building an array list of the characters in the subtree
-    private String lettersInList;
+    private String displayLetters;
 
     public ListTile(){}
 
@@ -42,6 +42,12 @@ public class ListTile extends Tile{
     protected void setNext(ListTile tile)
     {
         next = tile;
+    }
+
+    protected String clearAndResetDisplayLetters()
+    {
+        displayLetters = null;
+        return new String(this.buildDisplayList());
     }
 
     /**
@@ -161,10 +167,10 @@ public class ListTile extends Tile{
      */
     public String buildDisplayList()
     {
-        if(lettersInList == null)
-            lettersInList = new String("");
+        if(displayLetters == null)
+            displayLetters = new String("");
         buildDisplayList(this.getNext(), this);
-        return lettersInList;
+        return displayLetters;
     }
 
     /**
@@ -179,7 +185,7 @@ public class ListTile extends Tile{
             return;
         //make the letter a string object, then add it to the field string
         String character = Character.toString(tile.getLetter());
-        lettersInList += character;
+        displayLetters += character;
         if(tile == tail)
             return;
         buildDisplayList(tile.getNext(), tail);

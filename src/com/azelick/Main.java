@@ -33,13 +33,10 @@ public class Main {
         player1.drawNewHand(playingBoard);
         player2.drawNewHand(playingBoard);
 
-//        //TODO for testing purposes
-//        UserPlayer player3 = new UserPlayer();
-//        try {
-//            player3 = player1.makeClone();
-//        } catch(CloneNotSupportedException e) {}
-//        player1.display();
-//        player3.display();
+        //TODO for testing purposes
+        UserPlayer player3 = player1.makeClone();
+        player1.displayHand();
+        player3.displayHand();
 
         //make plays until one of them reaches the final number
         do {

@@ -77,22 +77,13 @@ abstract public class Hand {
         //we are using the loop to call the recursive function a specific number of times
         //create the first one outside the loop so we can create the data structure
         if(tailOfTiles == null) {
-            Tile newGuy = new Tile(board.getRandomTile());
+            //Tile newGuy = new Tile(board.getRandomTile());
+            Tile newGuy = board.getRandomTile().clone();
             tailOfTiles = new ListTile(newGuy);
             tailOfTiles.setNext(tailOfTiles);
         }
         for(int i = 0; i < numOfTiles - 1; ++i)
             tailOfTiles = tailOfTiles.insert(board.getRandomTile(), tailOfTiles);
-    }
-
-    /**
-     * to replace a tile in user's hand after they play to board
-     * @param tile the playing board that gives us a tile
-     * @param letter
-     * @return
-     */
-    public void replaceTile(Tile tile, char letter) {
-        tailOfTiles = tailOfTiles.replaceTile(tailOfTiles, tile, letter);
     }
 
     /**
@@ -127,7 +118,7 @@ abstract public class Hand {
      * @return returns a copy of the reference to that string
      */
     public String getHand() {
-        displayHand = new String(tailOfTiles.buildDisplayList());
+        displayHand = tailOfTiles.clearAndResetDisplayLetters();
         return displayHand;
     }
 

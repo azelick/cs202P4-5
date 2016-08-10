@@ -3,7 +3,7 @@ package com.azelick;
 /**
  * Created by azelick on 8/1/16.
  */
-public class Tile {
+public class Tile implements Cloneable {
     char letter;
     int pointValue;
 
@@ -13,6 +13,15 @@ public class Tile {
     {
         letter = tile.getLetter();
         pointValue = tile.getPointValue();
+    }
+
+    public Tile clone()
+    {
+        Tile cloned = null;
+        try {
+            cloned = (Tile) super.clone();
+        } catch (CloneNotSupportedException e) {}
+        return cloned;
     }
 
     public Tile(char newLetter, int newPointValue)

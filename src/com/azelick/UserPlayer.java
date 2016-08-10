@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Created by azelick on 8/1/16.
  */
-public class UserPlayer extends Hand {
+public class UserPlayer extends Hand implements Cloneable {
    public UserPlayer()
    {
    }
@@ -15,9 +15,12 @@ public class UserPlayer extends Hand {
         super(name);
    }
 
-   public UserPlayer makeClone() throws CloneNotSupportedException
+   public UserPlayer makeClone()
    {
-      UserPlayer cloned = (UserPlayer) this.clone();
+       UserPlayer cloned = null;
+       try {
+           cloned = (UserPlayer) super.clone();
+       } catch (CloneNotSupportedException e) {}
        return cloned;
    }
 
