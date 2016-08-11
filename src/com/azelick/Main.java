@@ -4,12 +4,17 @@ import java.util.Scanner;
 
 public class Main {
 
+    static int winningScore = 25;
+
     public static void main(String[] args) {
-	// write your code here
+        // create a new board of size 10
         Board playingBoard = new Board(10);
 
+        //scanner used to get user input
         Scanner scanner = new Scanner(System.in);
         String response;
+
+        //create our players
         UserPlayer player1;
         UserPlayer player2;
 
@@ -17,13 +22,11 @@ public class Main {
         System.out.println("Welcome to scrabble!");
         System.out.println("There will be two players today.");
 
-        //get player names
+        //get player names, use that to create player objects
         //player 1
         System.out.println("What would the first player like to be called?");
         response = scanner.nextLine();
         player1 = new UserPlayer(response);
-        response = null;
-
         //player 2
         System.out.println("What would the second player like to be called?");
         response = scanner.nextLine();
@@ -33,28 +36,24 @@ public class Main {
         player1.drawNewHand(playingBoard);
         player2.drawNewHand(playingBoard);
 
-        //TODO for testing purposes
-        UserPlayer player3 = player1.makeClone();
-        player1.displayHand();
-        player3.displayHand();
-
         //make plays until one of them reaches the final number
         do {
             playingBoard.display();
+            //player one's turn
             System.out.println(player1.getName() + " it's your turn!");
             player1.displayHand();
             player1.makePlay(playingBoard);
             //display score
-            //System.out.println(player1.getName() + " your score is: " + player1.getScore());
             player1.displayScore();
 
+            //display board in between player's turns
             playingBoard.display();
 
+            //player two's turn
             System.out.println(player2.getName() + " it's your turn!");
             player2.displayHand();
             player2.makePlay(playingBoard);
             //display score
-            //System.out.println(player2.getName() + " your score is: " + player2.getScore());
             player2.displayScore();
 
 
@@ -71,6 +70,10 @@ public class Main {
 
     }
 
+    /**
+     * ask the user if they want to end the game
+     * @return boolean based on their response
+     */
     static public boolean quit()
     {
         Scanner scanner = new Scanner(System.in);
@@ -80,9 +83,16 @@ public class Main {
             return false;
         return true;
     }
+
+    /**
+     * compare the scores, to see if someone has eclipsed the game winning score
+     * @param player1 the first player
+     * @param player2 the second player
+     * @return the boolean if at least one player has won
+     */
     static public boolean checkScores(UserPlayer player1, UserPlayer player2)
     {
-        if(player1.getScore() > 25 || player2.getScore() > 25)
+        if(player1.getScore() > winningScore || player2.getScore() > winningScore)
             return false;
         return true;
     }

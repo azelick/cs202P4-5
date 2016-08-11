@@ -2,6 +2,10 @@ package com.azelick;
 
 /**
  * Created by azelick on 8/4/16.
+ *
+ * This is a regular space class. It is a derived class
+ * of the abstract base class Space. It overrides Spaces
+ * display and getPoints methods
  */
 public class RegularSpace extends Space {
 

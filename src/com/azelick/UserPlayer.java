@@ -4,18 +4,26 @@ import java.util.Scanner;
 
 /**
  * Created by azelick on 8/1/16.
+ * This is a UserPlayer, it extends Hand
+ * and represents a player of the game. It handles the player interaction with
+ * the game.
  */
 public class UserPlayer extends Hand implements Cloneable {
-   public UserPlayer()
-   {
-   }
 
+    /**
+     * arg constructor
+     * @param name the name to use when creating the class
+     */
    public UserPlayer(String name)
    {
         super(name);
    }
 
-   public UserPlayer makeClone()
+    /**
+     * overriden clone method. To be used instead of the copy constructor
+     * @return returns the newly made cloned object
+     */
+   public UserPlayer clone()
    {
        UserPlayer cloned = null;
        try {
@@ -24,6 +32,11 @@ public class UserPlayer extends Hand implements Cloneable {
        return cloned;
    }
 
+    /**
+     * interact with the user and ask them what
+     * letter they would like to place from their hand
+     * @return returns the character of the user's choice
+     */
    public char getUserChoice()
    {
 
@@ -35,6 +48,11 @@ public class UserPlayer extends Hand implements Cloneable {
        return Character.toUpperCase(response.charAt(0));
    }
 
+    /**
+     * overriden method to have the user player make a play
+     * handles all user interaction for their turn
+     * @param board the board they will be making the play upon
+     */
    public void makePlay(Board board)
    {
        int turnScore = 0;
@@ -56,6 +74,11 @@ public class UserPlayer extends Hand implements Cloneable {
        addToScore(turnScore);
    }
 
+    /**
+     * check to see if the user wants to continue
+     * @param response the user's response
+     * @return return the boolean based on their response
+     */
    protected boolean again(char response)
    {
        response = Character.toUpperCase(response);
@@ -64,6 +87,10 @@ public class UserPlayer extends Hand implements Cloneable {
        return false;
    }
 
+    /**
+     * ask the user if they wish to play another letter
+     * @return boolean based on their response
+     */
    protected boolean anotherLetter()
    {
        String response;

@@ -8,7 +8,7 @@ package com.azelick;
  * It is extended simply because that allows us to add in an AI player easily if
  * desired.
  */
-abstract public class Hand {
+abstract public class Hand implements Cloneable {
     /**
     * The tiles this player has in their hand
     * data structure is a CLL
@@ -38,16 +38,6 @@ abstract public class Hand {
     public Hand(String name)
     {
         playerName = new String(name);
-    }
-
-    /**
-     * copy constructor
-     * @param hand the hand to copy from
-     */
-    public Hand(Hand hand)
-    {
-        //TODO
-        this.tailOfTiles = hand.tailOfTiles.copyList();
     }
 
     /**

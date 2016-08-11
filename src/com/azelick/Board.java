@@ -7,7 +7,7 @@ package com.azelick;
  * and also the tileBag that generates the random list of tiles to play with
  *
  */
-public class Board {
+public class Board implements Cloneable {
     // head is the reference to the doubly dimensioned array of spaces
     private Space [][]head;
     //this is the tile bag that generates tiles for the players and board to use
@@ -48,19 +48,18 @@ public class Board {
         tBag = new TileBag();
     }
 
-    //TODO, SHOULD THIS BE DELETED?
-
     /**
-     * Here is the copy constructor
-     * currently I'm not using it though.
-     * @param board the board to copy from
+     * The overridden clone method, used in place of
+     * the copy constructor
+     * @return the newly created, 'cloned' object
      */
-    public Board(Board board)
+    public Board clone()
     {
-        //copy bag, tiles, size
-        board.copyBoardSpaces(this.head);
-        board.tBag = new TileBag(this.tBag);
-        this.size = board.size;
+        Board cloned = null;
+        try {
+            cloned = (Board) super.clone();
+        } catch (CloneNotSupportedException e) {}
+        return cloned;
     }
 
     /**
@@ -112,14 +111,5 @@ public class Board {
     public void putTileBack(Tile tile)
     {
         tBag.returnToUnused(tile);
-    }
-
-    /**
-     * copy the spaces of the board
-     * @param head the reference to the object to copy
-     */
-    protected void copyBoardSpaces(Space [][] head)
-    {
-        //TODO NEED TO LOOK UP HOW TO COPY A 2D ARRAY
     }
 }

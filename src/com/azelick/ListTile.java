@@ -13,6 +13,9 @@ public class ListTile extends Tile{
     //building an array list of the characters in the subtree
     private String displayLetters;
 
+    /**
+     * default constructor
+     */
     public ListTile(){}
 
     /**
@@ -80,31 +83,6 @@ public class ListTile extends Tile{
             tile.setNext(insertAtEnd(tile.getNext(), newGuy, tail));
         }
         return tile;
-    }
-
-    /**
-     * This method will copy the list into a new ListTile
-     * @return the tail pointer to the new list
-     */
-    public ListTile copyList()
-    {
-        return this.copyAll(this, new ListTile());
-    }
-
-    /**
-     * retursive call to copy the list
-     * @param tile the current object
-     * @param toMake the guy to create
-     * @return the tile to link up
-     */
-    private ListTile copyAll(ListTile tile, ListTile toMake)
-    {
-        if(tile == null)
-            return null;
-
-        //TODO Do I need this? if not, it's kinda a pain
-        return null;
-
     }
 
     /**

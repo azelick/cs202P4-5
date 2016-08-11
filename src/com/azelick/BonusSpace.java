@@ -8,8 +8,6 @@ package com.azelick;
  *
  */
 public class BonusSpace extends Space {
-    //TODO dynamic methods: display and return points
-
     /**
      * the currently unused default constructor
      */
